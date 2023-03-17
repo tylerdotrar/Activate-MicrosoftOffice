@@ -1,7 +1,7 @@
 ﻿function Activate-MicrosoftOffice {
 #.SYNOPSIS
 # Activate Microsoft Office Professional Plus 2016 - 2021
-# ARBITRARY VERSION NUMBER:  1.0.2
+# ARBITRARY VERSION NUMBER:  1.0.3
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
@@ -79,7 +79,7 @@
 
     ## Step 4
     Write-Host 'Converting retail license to volume license...' -ForegroundColor Yellow
-    $Licenses = (Get-ChildItem "..\root\Licenses16\${OfficeVersion}VL_KMS*.xrm-ms").FullName
+    $Licenses = (Get-ChildItem "..\root\Licenses16\${OfficeVersion}VL_KMS*.xrm-ms").FullName 2>$NULL
 
     if ($Licenses -eq $NULL) { Write-Host ' - Skipping' }
     else { $Licenses | % { cscript /nologo ospp.vbs /inslic:$_ } }
