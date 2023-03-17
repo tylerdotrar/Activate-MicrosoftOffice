@@ -21,8 +21,12 @@ KMS client key using a publically available KMS server.
 - Supports both 32-bit and 64-bit
 - Supports Microsoft Office 2016, 2019, and 2021
 - Script works in Desktop PowerShell and PowerShell Core
+- Moderate error correction
 
-![Get-Help](https://cdn.discordapp.com/attachments/855920119292362802/1086392422260539392/image.png)
+![Error Correction](https://cdn.discordapp.com/attachments/855920119292362802/1086403306236162138/image.png)
+
+## Get-Help
+![Get-Help](https://cdn.discordapp.com/attachments/855920119292362802/1086407625110999060/image.png)
 
 ## Official Microsoft Office Downloads
 Microsoft Office Professional Plus 2021:
