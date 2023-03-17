@@ -1,7 +1,7 @@
 ﻿function Activate-MicrosoftOffice {
 #.SYNOPSIS
 # Activate Microsoft Office Professional Plus 2016 - 2021
-# ARBITRARY VERSION NUMBER:  1.0.1
+# ARBITRARY VERSION NUMBER:  1.0.2
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
@@ -9,15 +9,16 @@
 # KMS client key using a publically available KMS server.  This script supports both 32-bit and
 # 64-bit versions of Microsoft Office 2016, 2019, and 2021.  Must run elevated.
 #
-# Notes:
 #
-#  Microsoft Office Professional Plus 2021:
+# Official Microsoft Office Downloads:
+#
+#  - Microsoft Office Professional Plus 2021:
 #  - Download URL : https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2021Retail.img
 #
-#  Microsoft Office Professional Plus 2019:
+#  - Microsoft Office Professional Plus 2019:
 #  - Download URL : https://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2019Retail.img
 #
-#  Microsoft Office Professional Plus 2016:
+#  - Microsoft Office Professional Plus 2016:
 #  - Download URL : <N/A>
 #
 #.LINK
@@ -38,6 +39,7 @@
 
     if (Test-Path -LiteralPath $OfficeDir)        { cd -LiteralPath $OfficeDir    ; Write-Host ' - 64-bit' }
     elseif (Test-Path -LiteralPath $OfficeDirx86) { cd -LiteralPath $OfficeDirx86 ; Write-host ' - 32-bit' }
+    else { return (Write-Host ' - Failed to find Microsoft Office.  Exiting script.' -ForegroundColor Red) }
 
     
     ## Step 2
@@ -71,7 +73,7 @@
         if ($Connection.TcpTestSucceeded) { $KMS_Server = $Server ; break }
     }
 
-    if (!$KMS_Server) { return (Write-Host 'Failed to connect to any KMS servers. Exiting.' -ForegroundColor Red) }
+    if (!$KMS_Server) { return (Write-Host ' - Failed to connect to any KMS servers. Exiting script.' -ForegroundColor Red) }
     Write-Host " - ${KMS_Server}"
 
 
