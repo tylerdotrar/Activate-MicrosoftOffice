@@ -1,13 +1,17 @@
 ﻿function Activate-MicrosoftOffice {
 #.SYNOPSIS
-# Activate Microsoft Office Professional Plus 2016 - 2021
-# ARBITRARY VERSION NUMBER:  1.0.3
+# Activate Free Microsoft Office Professional Plus 2016 - 2021
+# ARBITRARY VERSION NUMBER:  1.1.0
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
 # Automatically detect and activate locally installed Microsoft Office with a Professional Plus
 # KMS client key using a publically available KMS server.  This script supports both 32-bit and
 # 64-bit versions of Microsoft Office 2016, 2019, and 2021.  Must run elevated.
+#
+# Parameters:
+#   -KMSserver    -->  Domain/IP of specified KMS server
+#   -KMSport      -->  Port of specified KMS server
 #
 #
 # Official Microsoft Office Downloads:
@@ -24,6 +28,12 @@
 #.LINK
 # https://github.com/tylerdotrar/Activate-MicrosoftOffice
 
+    
+    Param ( 
+        [string]$KMSserver,
+        [int]$KMSport
+    )
+
 
     # Determine if user has elevated privileges
     $User    = [Security.Principal.WindowsIdentity]::GetCurrent();
@@ -37,9 +47,9 @@
     $OfficeDir    = "$env:ProgramFiles\Microsoft Office\Office16"
     $OfficeDirx86 = "${env:ProgramFiles(x86)}\Microsoft Office\Office16"
 
-    if (Test-Path -LiteralPath $OfficeDir)        { cd -LiteralPath $OfficeDir    ; Write-Host ' - 64-bit' }
-    elseif (Test-Path -LiteralPath $OfficeDirx86) { cd -LiteralPath $OfficeDirx86 ; Write-host ' - 32-bit' }
-    else { return (Write-Host ' - Failed to find Microsoft Office.  Exiting script.' -ForegroundColor Red) }
+    if (Test-Path -LiteralPath $OfficeDir)        { cd -LiteralPath $OfficeDir    ; Write-Host "- 64-bit`n" }
+    elseif (Test-Path -LiteralPath $OfficeDirx86) { cd -LiteralPath $OfficeDirx86 ; Write-host "- 32-bit`n" }
+    else { return (Write-Host "- Failed to find Microsoft Office.`n" -ForegroundColor Red) }
 
     
     ## Step 2
@@ -47,6 +57,11 @@
     $OfficeStatus  = cscript /nologo ospp.vbs /dstatus
     $OfficeVersion = ($OfficeStatus | Select-String -Pattern "ProPlus(\d{4})?").Matches.Value
     $CurrentKey    = (($OfficeStatus | Select-String -Pattern "product key:") -as [string]).Split(' ')[-1]
+
+    if (!$OfficeVersion) {
+        cd -LiteralPath $PreActivate
+        return (Write-Host "- Initial Office license not detected; please first-time open a Microsoft Office executable or reboot your computer.`n" -ForegroundColor Red)
+    }
     
     # Microsoft Office KMS Client Key Table
     $KeyTable = @(
@@ -56,39 +71,51 @@
     )
 
     $KeyTable | % { if ($OfficeVersion -eq $_.OfficeVersion) { $ActivationKey = $_.Key ; $OfficeName = $_.OfficeName } }
-    Write-Host " - $OfficeName"
+    Write-Host "- $OfficeName`n"
 
 
     ## Step 3
-    Write-Host 'Determining which public KMS server to use for activation...' -ForegroundColor Yellow
-    $ServerList = @(
-        'e8.us.to',
-        'e9.us.to',
-        'kms8.msguides.com',
-        'kms9.msguides.com'
-    )
+    if ($KMSserver) { Write-Host 'Testing connection to input KMS server for activation...'     -ForegroundColor Yellow }
+    else            { Write-Host 'Determining which public KMS server to use for activation...' -ForegroundColor Yellow }
+
+    # User input KMS server
+    if ($KMSserver) { $ServerList = @("$KMSserver") }
+    else {
+        $ServerList += @(
+            'e8.us.to',
+            'e9.us.to',
+            'kms8.msguides.com',
+            'kms9.msguides.com'
+        )
+    }
 
     foreach ($Server in $ServerList) {
-        $Connection = Test-NetConnection -ComputerName $Server -Port 1688
+        # User input KMS port
+        if (!$KMSport) { $KMsport = 1688 }
+        $Connection = Test-NetConnection -ComputerName $Server -Port $KMSport
+
         if ($Connection.TcpTestSucceeded) { $KMS_Server = $Server ; break }
     }
 
-    if (!$KMS_Server) { return (Write-Host ' - Failed to connect to any KMS servers. Exiting script.' -ForegroundColor Red) }
-    Write-Host " - ${KMS_Server}"
+    if (!$KMS_Server) {
+        cd -LiteralPath $PreActivate
+        return (Write-Host "- Failed to connect to any KMS servers; please try a different server.`n(Use 'Activate-MicrosoftOffice' with params '-KMSserver' & '-KMSport').`n" -ForegroundColor Red)
+    }
+    Write-Host "- ${KMS_Server}`n"
 
 
     ## Step 4
     Write-Host 'Converting retail license to volume license...' -ForegroundColor Yellow
     $Licenses = (Get-ChildItem "..\root\Licenses16\${OfficeVersion}VL_KMS*.xrm-ms").FullName 2>$NULL
 
-    if ($Licenses -eq $NULL) { Write-Host ' - Skipping' }
+    if ($Licenses -eq $NULL) { Write-Host "- Skipping`n" }
     else { $Licenses | % { cscript /nologo ospp.vbs /inslic:$_ } }
 
 
     ## Step 5
     Write-Host 'Activating Microsoft Office using KMS client key...' -ForegroundColor Yellow
     cscript /nologo ospp.vbs /sethst:${KMS_Server}
-    cscript /nologo ospp.vbs /setprt:1688
+    cscript /nologo ospp.vbs /setprt:$KMSport
     cscript /nologo ospp.vbs /unpkey:$CurrentKey
     cscript /nologo ospp.vbs /inpkey:$ActivationKey
     cscript /nologo ospp.vbs /act
