@@ -10,7 +10,7 @@ Run with elevated privileges (i.e., Administrator)
 
 **One-Liner Syntax:**
 ```powershell
-iex ([System.Net.WebClient]::new().DownloadString('https://raw.githubusercontent.com/tylerdotrar/Activate-MicrosoftOffice/main/Activate-MicrosoftOffice.ps1'); Activate-MicrosoftOffice)
+iex ([System.Net.WebClient]::new().DownloadString('https://raw.githubusercontent.com/tylerdotrar/Activate-MicrosoftOffice/main/Activate-MicrosoftOffice.ps1')); Activate-MicrosoftOffice
 ```
 
 ![Output](https://cdn.discordapp.com/attachments/855920119292362802/1086394905296916561/image.png)
