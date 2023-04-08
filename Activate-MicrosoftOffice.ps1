@@ -1,29 +1,28 @@
 ﻿function Activate-MicrosoftOffice {
 #.SYNOPSIS
-# Activate Free Microsoft Office Professional Plus 2016 - 2021
-# ARBITRARY VERSION NUMBER:  1.1.0
+# Activate Microsoft Office Professional Plus 2016 - 2021
+# ARBITRARY VERSION NUMBER:  1.1.1
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
-# Automatically detect and activate locally installed Microsoft Office with a Professional Plus
-# KMS client key using a publically available KMS server.  This script supports both 32-bit and
-# 64-bit versions of Microsoft Office 2016, 2019, and 2021.  Must run elevated.
+# Automatically detect and activate a locally installed Microsoft Office instance with a Professional Plus
+# KMS client key using either a publically available KMS server (default) or a specfied KMS server.  This
+# script supports both 32-bit and 64-bit versions of Microsoft Office 2016, 2019, and 2021.
+# Note: This script must run elevated.
 #
 # Parameters:
 #   -KMSserver    -->  Domain/IP of specified KMS server
 #   -KMSport      -->  Port of specified KMS server
 #
-#
 # Official Microsoft Office Downloads:
+#   + Microsoft Office Professional Plus 2021:
+#   - Download URL : https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2021Retail.img
 #
-#  - Microsoft Office Professional Plus 2021:
-#  - Download URL : https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2021Retail.img
+#   + Microsoft Office Professional Plus 2019:
+#   - Download URL : https://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2019Retail.img
 #
-#  - Microsoft Office Professional Plus 2019:
-#  - Download URL : https://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2019Retail.img
-#
-#  - Microsoft Office Professional Plus 2016:
-#  - Download URL : <N/A>
+#   + Microsoft Office Professional Plus 2016:
+#   - Download URL : <N/A>
 #
 #.LINK
 # https://github.com/tylerdotrar/Activate-MicrosoftOffice
@@ -31,9 +30,13 @@
     
     Param ( 
         [string]$KMSserver,
-        [int]$KMSport
+        [int]   $KMSport,
+        [switch]$Help
     )
 
+
+    # Retrun Help Information
+    if ($Help) { return (Get-Help Activate-MicrosoftOffice) }
 
     # Determine if user has elevated privileges
     $User    = [Security.Principal.WindowsIdentity]::GetCurrent();
