@@ -10,7 +10,7 @@ Run with elevated privileges (i.e., Administrator)
 
 **One-Liner Syntax:**
 ```powershell
-iex ([System.Net.WebClient]::new().DownloadString('https://raw.githubusercontent.com/tylerdotrar/Activate-MicrosoftOffice/main/Activate-MicrosoftOffice.ps1'))
+iex ([System.Net.WebClient]::new().DownloadString('https://raw.githubusercontent.com/tylerdotrar/Activate-MicrosoftOffice/main/Activate-MicrosoftOffice.ps1'); Activate-MicrosoftOffice)
 ```
 
 ![Output](https://cdn.discordapp.com/attachments/855920119292362802/1086394905296916561/image.png)
@@ -19,6 +19,7 @@ iex ([System.Net.WebClient]::new().DownloadString('https://raw.githubusercontent
 ## Description
 Automatically detect and activate locally installed Microsoft Office instance with a Professional Plus 
 KMS client key using a publically available KMS server.
+- [Version 1.1.0] Supports custom KMS servers
 - Supports both 32-bit and 64-bit
 - Supports Microsoft Office 2016, 2019, and 2021
 - Script works with both Desktop PowerShell and PowerShell Core
@@ -26,7 +27,7 @@ KMS client key using a publically available KMS server.
 
 
 ## Get-Help
-![Get-Help](https://cdn.discordapp.com/attachments/855920119292362802/1086407625110999060/image.png)
+![Get-Help](https://cdn.discordapp.com/attachments/855920119292362802/1094204012737343629/image.png)
 
 
 ## Error Correction
