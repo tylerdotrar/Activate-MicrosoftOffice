@@ -1,7 +1,7 @@
 ﻿function Activate-MicrosoftOffice {
 #.SYNOPSIS
 # Activate Microsoft Office Professional Plus 2016 - 2021
-# ARBITRARY VERSION NUMBER:  2.0.0
+# ARBITRARY VERSION NUMBER:  2.0.1
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
@@ -144,19 +144,19 @@
     ## Step 5: Activate Office with KMS key
     Write-Host "`n[+] Activating Microsoft Office using KMS client key..." -ForegroundColor Yellow
 
-    Write-Host " o  Setting KMS Hostname : '${KMS_Server}'"
+    Write-Host "`n o  Setting KMS Hostname : '${KMS_Server}'"
     cscript /nologo ospp.vbs /sethst:${KMS_Server}  ; Start-Sleep -Seconds 3
 
-    Write-Host " o  Setting KMS Port     : $KMSport"
+    Write-Host "`n o  Setting KMS Port     : $KMSport"
     cscript /nologo ospp.vbs /setprt:$KMSport       ; Start-Sleep -Seconds 3
 
-    Write-Host " o  Uninstalling current product key..."
+    Write-Host "`n o  Uninstalling current product key..."
     cscript /nologo ospp.vbs /unpkey:$CurrentKey    ; Start-Sleep -Seconds 3
 
-    Write-Host " o  Installing KMS product key..."
+    Write-Host "`n o  Installing KMS product key..."
     cscript /nologo ospp.vbs /inpkey:$ActivationKey ; Start-Sleep -Seconds 3
 
-    Write-Host " o  Activating new product key..."
+    Write-Host "`n o  Activating new product key..."
     cscript /nologo ospp.vbs /act                   ; Start-Sleep -Seconds 3
 
 
@@ -191,9 +191,14 @@
                 .\OfficeC2RClient.exe /update user updatetoversion=16.0.13801.20266
                 
                 # Wait for OfficeC2Client to execute and close
-                Start-Sleep -Seconds 10
+                Start-Sleep -Seconds 15
+                Write-host " o  Wait for 'OfficeC2RClient' to finish executing before continuing."
+
+                # Removed first-time launch false negatives
+                <#
                 while (Get-Process -Name OfficeC2RClient 2>$NULL) { $SuccessfullyExecuted = $TRUE }
                 if (!$SuccessfullyExecuted) {  Write-Host "[-]  Failed to launch 'OfficeC2RClient' executable." }
+                #>
             }
             
 
