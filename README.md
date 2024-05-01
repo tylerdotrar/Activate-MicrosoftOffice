@@ -13,8 +13,7 @@ Run with elevated privileges (i.e., Administrator)
 iex ([System.Net.WebClient]::new().DownloadString('https://raw.githubusercontent.com/tylerdotrar/Activate-MicrosoftOffice/main/Activate-MicrosoftOffice.ps1')); Activate-MicrosoftOffice
 ```
 
-![Output](https://cdn.discordapp.com/attachments/855920119292362802/1156658422733877298/image.png?ex=6515c599&is=65147419&hm=87a236c0363fe4644c2ac2dafeba4cce965b16d5d9fa7e36bdc9bd17e2be634b&)
-
+![Banner](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/bd053187-1c84-49f0-b756-12aed8ccaade)
 
 ## Description
 Automatically detect and activate locally installed Microsoft Office instance with a Professional Plus 
@@ -33,28 +32,31 @@ KMS client key using a publically available KMS server.
 ```
 v2.0.0: Get-Help
 ```
-![Get-Help](https://cdn.discordapp.com/attachments/855920119292362802/1156659521855426650/image.png?ex=6515c69f&is=6514751f&hm=de1eaf41a53770066d48d128d8a6258df3f58411dbe06259c0ae5df0f81a4c13&)
+![Get-Help](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/843f3bd5-a27c-4199-adb1-0c754d7c9ee3)
+
 
 ```
 v2.0.1: Office version rollback.
 ```
-![Version 2.0.1](https://cdn.discordapp.com/attachments/855920119292362802/1156672784924160180/image.png?ex=6515d2f9&is=65148179&hm=74b0d7b5da1bb23259b03359fe86ffa9a099c2365fa7f289b3f3424c557a2d7a&)
+![Version 2.0.1](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/735e37c8-b4e3-46e2-9b9c-41491d012487)
 
 
 ```
 Error Correction: Not in elevated terminal.
 ```
-![Not Elevated](https://cdn.discordapp.com/attachments/855920119292362802/1086409673047019550/image.png)
+![Not Elevated](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/6806500f-f6f2-4fb3-a066-91c289dd2681)
+
 
 ```
 Error Correction: Office not installed.
 ```
-![Failed to Find](https://cdn.discordapp.com/attachments/855920119292362802/1156660054322327552/image.png?ex=6515c71e&is=6514759e&hm=f96c2c6b02b10a157d267a5060f316121799659fd3c4434108e672351a16aa99&)
+![Failed to Find](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/405fe318-4dad-4784-ac1e-1c5d8fd3798f)
+
 
 ```
 Error Correction: Could not connect to KMS servers.
 ```
-![Failed to Resolve](https://cdn.discordapp.com/attachments/855920119292362802/1156662636566544414/image.png?ex=6515c986&is=65147806&hm=c621eb6adea81b897964a83b9fd651d88a793f4c41e56534846863edb370fadf&)
+![Failed to Resolve](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/6597fa4f-139c-4ebf-afb7-0aa04f5bcab4)
 
 
 ## Official Microsoft Office Downloads
