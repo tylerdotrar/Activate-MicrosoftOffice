@@ -1,39 +1,40 @@
 ﻿function Activate-MicrosoftOffice {
 #.SYNOPSIS
-# Activate Microsoft Office Professional Plus 2016 - 2021
-# ARBITRARY VERSION NUMBER:  2.0.1
-# AUTHOR:  Tyler McCann (@tylerdotrar)
+# Activate Microsoft Office 2016 - 2021 via free Professional Plus KMS client keys 
+# Arbitrary Version Number:  2.0.2
+# Author:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
-# Automatically detect and activate a locally installed Microsoft Office instance with a Professional Plus
-# KMS client key, using either a publicly available KMS server (default) or a specfied KMS server.  This
-# script supports both 32-bit and 64-bit versions of Microsoft Office 2016, 2019, and 2021.
+# Automatically detect and activate a locally installed Microsoft Office instance with a Professional Plus KMS client key,
+# using either a publicly available KMS server (default) or a specfied KMS server.  This script supports both 32-bit and
+# 64-bit versions of Microsoft Office 2016, 2019, and 2021.
 #
-# As of version 2.0.0, this script will rollback the Microsoft Office version to '16.0.13801.20266' and 
-# set a registry key to disable automatic updates.  This should prevent the annoying 'GET GENUINE OFFICE' 
-# banner that plagued earlier versions of this script when using these KMS client keys.
+# As of version 2.0.0, this script will rollback the Microsoft Office version to '16.0.13801.20266' and set a registry key
+# to disable automatic updates.  This should prevent the annoying 'GET GENUINE OFFICE' banner that plagued earlier versions
+# of this script when using these KMS client keys.
 # 
 # Usage Notes:
-# o This script must run elevated (i.e., as Administrator)
-# o This script contains a list of known public KMS servers and will automatically attempt
-#   to use them if the user doesn't specify a specific KMS server and/or port.
-# o If you don't want to disable automatic updates or rollback your Office version, run
-#   this script with the '-DontRollBack' parameter.
+# o This script must run with elevated privileges (i.e., as Administrator)
+# o This script contains a list of known public KMS servers and will automatically
+#   attempt to use them if the user doesn't specify a specific KMS server and/or port.
+# o If you don't want to disable automatic updates or rollback your Office version, 
+#   run this script with the '-DontRollback' parameter.
 #
 # Parameters:
 #   -KMSserver     -->  Target domain/IP of a specified KMS server
 #   -KMSport       -->  Target port of a specified KMS server
-#   -DontRollBack  -->  Don't rollback Office version and leave automatic updates enabled
+#   -DontRollback  -->  Do not rollback Office version and leave automatic updates enabled
+#   -Help          -->  Return Get-Help information 
 #
 # Official Microsoft Office Downloads:
-#   [+] Microsoft Office Professional Plus 2021:
+#   [+] Microsoft Office 2021 (Professional Plus):
 #    o  Download Link: https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2021Retail.img
 #
-#   [+] Microsoft Office Professional Plus 2019:
+#   [+] Microsoft Office 2019 (Professional Plus):
 #    o  Download Link: https://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2019Retail.img
 #
-#   [+] Microsoft Office Professional Plus 2016:
-#    o  Download Link: <N/A>
+#   [+] Microsoft Office 2016 (Professional Plus):
+#    o  Download Link: https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-us/ProPlusRetail.img
 #
 #.LINK
 # https://github.com/tylerdotrar/Activate-MicrosoftOffice
@@ -42,7 +43,7 @@
     Param ( 
         [string]$KMSserver,
         [int]   $KMSport,
-        [switch]$DontRollBack,
+        [switch]$DontRollback,
         [switch]$Help
     )
 
@@ -99,11 +100,11 @@
     else            { Write-Host "[+] Determining which public KMS server to use for activation..." -ForegroundColor Yellow }
 
 
-    # User input KMS server
+    # Optional: User input KMS activation server
     if ($KMSserver) { $ServerList = @("$KMSserver") }
 
 
-    # Known public KMS servers
+    # Known public KMS activation servers
     else {
         $ServerList += @(
             'e8.us.to',
@@ -132,7 +133,7 @@
     Write-Host " o  ${KMS_Server}`n"
 
 
-    ## Step 4: Change default license to volume license (aka able to activate with KMS keys)
+    ## Step 4: Change default license to KMS volume license (aka able to activate with KMS keys)
     Write-Host "[+] Converting retail license(s) to volume license(s)..." -ForegroundColor Yellow
     $Licenses = (Get-ChildItem "..\root\Licenses16\${OfficeVersion}VL_KMS*.xrm-ms").FullName 2>$NULL
 
@@ -161,7 +162,7 @@
 
 
     ### Version 2.0.0 ###
-    if (!$DontRollBack) {
+    if (!$DontRollback) {
 
         # Step 6: Rollback Office version to a bannerless version
         Write-Host "`n[+] Rolling back Office version to remove 'GET GENUINE OFFICE' banner..." -ForegroundColor Yellow
