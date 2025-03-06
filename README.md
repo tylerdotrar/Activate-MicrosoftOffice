@@ -17,12 +17,12 @@ _(Note: this does not work on anything beyond Office 2021 due to Microsoft's tra
 
 ```powershell
 # One-Liner: Execute Script w/ Default Parameters
-[Net.WebClient]::new().DownloadString('https://tylerdotrar.github.io/Activate-MicrosoftOffice') | iex; Activate-MicrosoftOffice
+irm https://tylerdotrar.github.io/Activate-MicrosoftOffice | iex; Activate-MicrosoftOffice
 ```
 ```powershell
 # Step-by-Step: Load Script into the Current Session
-$ScriptContents = [Net.WebClient]::new().DownloadString('https://tylerdotrar.github.io/Activate-MicrosoftOffice')
-Invoke-Expression $ScriptContents
+$ScriptContents = Invoke-RestMethod -Uri 'https://tylerdotrar.github.io/Activate-MicrosoftOffice'
+Invoke-Expression -Command $ScriptContents
 
 # Activate Office w/ Default Parameters
 Activate-MicrosoftOffice
