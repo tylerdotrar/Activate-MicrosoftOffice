@@ -5,8 +5,7 @@ _(Note: this does not work on anything beyond Office 2021 due to Microsoft's tra
 
 
 ## TL;DR
-
-![image](https://github.com/user-attachments/assets/32d3482b-c9ee-4e75-8c34-c1a0a3f3d720)
+![image](https://github.com/user-attachments/assets/99473ddc-1ed9-42cd-a6ba-2401bd1691ab)
 
 ### Requirements:
 
