@@ -1,8 +1,7 @@
 # Activate-MicrosoftOffice
-**PowerShell tool to activate **Microsoft Office 2016 - 2021** via static Professional Plus KMS client keys.**
+**PowerShell tool to activate Microsoft Office 2016 - 2024 via static Professional Plus KMS client keys.**
 
-_(Note: this does not work on anything beyond Office 2021 due to Microsoft's transition to cloud-based Office 365)_
-
+_(Note: this works on **local** installations of Microsoft Office, and has nothing to do with cloud-based Office 365)_
 
 ## TL;DR
 ![image](https://github.com/user-attachments/assets/99473ddc-1ed9-42cd-a6ba-2401bd1691ab)
@@ -23,8 +22,11 @@ irm https://tylerdotrar.github.io/Activate-MicrosoftOffice | iex; Activate-Micro
 $ScriptContents = Invoke-RestMethod -Uri 'https://tylerdotrar.github.io/Activate-MicrosoftOffice'
 Invoke-Expression -Command $ScriptContents
 
-# Activate Office w/ Default Parameters
+# Activate Office 2016-2021 (w/ Default Parameters)
 Activate-MicrosoftOffice
+
+# Activate Office 2024 (w/ Default Parameters)
+Activate-MicrosoftOffice -Office2024
 
 # Activate Office, but do NOT disable automatic updates (might result in 'GET GENUINE OFFICE' banner)
 Activate-MicrosoftOffice -DontRollBack
@@ -35,6 +37,7 @@ Activate-MicrosoftOffice -DontRollBack
 
 While not a hard requirement, it is recommended to use one of the **official** Microsoft Office download links listed below:
 
+- Microsoft Office 2024 (Professional Plus)  →  [ProPlus2024Retail.img](https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2024Retail.img)
 - Microsoft Office 2021 (Professional Plus)  →  [ProPlus2021Retail.img](https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2021Retail.img)
 - Microsoft Office 2019 (Professional Plus)  →  [ProPlus2019Retail.img](https://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/ProPlus2019Retail.img)
 - Microsoft Office 2016 (Professional Plus)  →  [ProPlusRetail.img](https://officecdn.microsoft.com/db/492350F6-3A01-4F97-B9C0-C7C6DDF67D60/media/en-us/ProPlusRetail.img)
@@ -49,7 +52,7 @@ _"What are KMS keys?"_
 
 This project modifies local versions of Microsoft Office to utilize Microsoft's static KMS client keys rather than one-time-use consumer keys.  The Office instance is then activated with a Professional Plus KMS client key via a publicly available KMS activation server.
 
-This PowerShell script only supports Microsoft Office 2016, 2019, and 2021 -- and has been tested on Windows 10 and Windows 11.
+This PowerShell script supports Microsoft Office 2016, 2019, 2021, and 2024 -- and has been tested on both Windows 10 and Windows 11.
 
 - **Script Features:**
   - Supports both 32-bit and 64-bit versions of Office.
@@ -59,31 +62,39 @@ This PowerShell script only supports Microsoft Office 2016, 2019, and 2021 -- an
   - **[Version 1.1.0]** Supports custom KMS servers and ports.
   - **[Version 2.0.0]** Remove `GET GENUINE OFFICE` banner via version rollback & disabled auto-updates.
   - **[Version 2.0.1]** Minor visual formatting adjustments.
+  - **[Version 2.0.3]** Added Microsoft Office 2024 support.
 
 
 ## Example Output(s)
-```
-Get-Help information (as of v2.0.2).
-```
-![Get-Help](https://github.com/user-attachments/assets/1f9cdd20-b50a-4d57-b5cc-251bc842b428)
+> ```
+> Get-Help information (as of v2.0.3).
+> ```
+> ![Get-Help](https://github.com/user-attachments/assets/23d31f9a-9fd0-40cc-9198-94ccd319c39b)
 
+---
 
-```
-Office version rollback introduced in v2.0.0.
-```
-![Version 2.0.1](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/735e37c8-b4e3-46e2-9b9c-41491d012487)
+> ```
+> Error Correction:  Not executed in elevated terminal.
+> ```
+> ![Not Elevated](https://github.com/user-attachments/assets/e3817061-dd21-4b60-a953-638039f08eb0)
 
-```
-Error Correction:  Not executed in elevated terminal.
-```
-![Not Elevated](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/6806500f-f6f2-4fb3-a066-91c289dd2681)
+---
 
-```
-Error Correction:  Microsoft Office not installed.
-```
-![Failed to Find](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/405fe318-4dad-4784-ac1e-1c5d8fd3798f)
+> ```
+> Error Correction:  Microsoft Office not installed.
+> ```
+> ![Failed to Find](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/405fe318-4dad-4784-ac1e-1c5d8fd3798f)
 
-```
-Error Correction:  Could not connect to KMS server(s).
-```
-![Failed to Resolve](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/6597fa4f-139c-4ebf-afb7-0aa04f5bcab4)
+---
+
+> ```
+> Error Correction:  Could not connect to KMS server(s).
+> ```
+> ![Failed to Resolve](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/6597fa4f-139c-4ebf-afb7-0aa04f5bcab4)
+
+---
+
+> ```
+> Office version rollback introduced in v2.0.0.
+> ```
+> ![Version 2.0.1](https://github.com/tylerdotrar/Activate-MicrosoftOffice/assets/69973771/735e37c8-b4e3-46e2-9b9c-41491d012487)
